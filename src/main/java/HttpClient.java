@@ -2,19 +2,34 @@ import java.io.IOException;
 import java.net.Socket;
 
 public class HttpClient {
+
+    private final String host;
+    private final int port;
+    private final String requestTarget;
+
+    public HttpClient(String host, int port, String requestTarget) {
+        this.host = host;
+        this.port = port;
+        this.requestTarget = requestTarget;
+    }
+
     public static void main(String[] args) throws IOException {
-        Socket socket = new Socket("urlecho.appspot.com", 80);
-        String request = " Accept: text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.9\r\n" +
-                "Accept-Language: nb-NO,nb;q=0.9,no;q=0.8,nn;q=0.7,en-US;q=0.6,en;q=0.5\r\n" +
-                "Connection: keep-alive\r\n" +
-                "Host: urlecho.appspot.com\r\n" +
-                "Upgrade-Insecure-Requests: 1\r\n" +
-                "User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10_14_5) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/85.0.4183.83 Safari/537.36\r\n";
-        socket.getOutputStream().write(request.getBytes());
+       new HttpClient("urlecho.appspot.com", 80, "/echo").executeRequest();
+    }
+
+    public void executeRequest() throws IOException {
+        Socket socket = new Socket(host, port);
+        socket.getOutputStream().write(("GET " + requestTarget + " HTTP/1.1\r\n" +
+                "Host: " + host + "\r\n" +
+                "\r\n").getBytes());
 
         int c;
         while ((c = socket.getInputStream().read()) != -1) {
             System.out.print((char) c);
         }
+    }
+
+    public int getStatusCode() {
+        return 0;
     }
 }
