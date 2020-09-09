@@ -6,6 +6,7 @@ public class HttpClient {
     private final String host;
     private final int port;
     private final String requestTarget;
+    public static int statusCode;
 
     public HttpClient(String host, int port, String requestTarget) {
         this.host = host;
@@ -29,11 +30,12 @@ public class HttpClient {
             // System.out.print((char) c);
             res.append((char) c);
         }
-
-        System.out.println(res);
+        String[] strRes = res.toString().split(" ");
+        statusCode = Integer.parseInt(strRes[1]);
     }
 
-    public int getStatusCode() {
-        return 0;
+    public int getStatusCode() throws IOException {
+        executeRequest();
+        return statusCode;
     }
 }
