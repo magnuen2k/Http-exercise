@@ -41,7 +41,7 @@ public class HttpClient {
         return res.toString();
     }
 
-    public int getStatusCode() throws IOException {
+    public int getStatusCode() {
         return statusCode;
     }
 
