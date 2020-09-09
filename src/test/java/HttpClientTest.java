@@ -16,4 +16,10 @@ public class HttpClientTest {
         HttpClient client = new HttpClient("urlecho.appspot.com", 80, "/echo?status=401");
         assertEquals(401, client.getStatusCode());
     }
+
+    @Test
+    void shouldReadResponseHeaders() throws IOException {
+        HttpClient client = new HttpClient("urlecho.appspot.com", 80, "/echo?body=kristiania");
+        assertEquals("kristiania".length(), client.getResponseHeader("Content-length"));
+    }
 }
