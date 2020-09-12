@@ -8,6 +8,8 @@ public class HttpClient {
     private final String requestTarget;
     private int statusCode;
 
+    // Test for dropbox
+
     public HttpClient(String host, int port, String requestTarget) throws IOException {
         this.host = host;
         this.port = port;
@@ -46,6 +48,6 @@ public class HttpClient {
     }
 
     public int getResponseHeader(String header) {
-        return 0;
+        return 10;
     }
 }
